@@ -1,0 +1,15 @@
+# Dependencias / build
+node_modules/
+**/node_modules/
+backend/target/
+**/.expo/
+
+# Logs
+*.log
+
+# Sistema operacional / IDE
+.DS_Store
+.idea/
+.vscode/
+*.iml
+.claude/
