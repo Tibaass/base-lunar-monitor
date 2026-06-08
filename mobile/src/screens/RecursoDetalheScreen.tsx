@@ -108,9 +108,7 @@ function Linha({ rotulo, valor }: { rotulo: string; valor: string }) {
 }
 
 function formatarData(iso: string): string {
-  const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return iso;
-  return d.toLocaleString('pt-BR');
+  return new Date(iso).toLocaleString('pt-BR');
 }
 
 const styles = StyleSheet.create({

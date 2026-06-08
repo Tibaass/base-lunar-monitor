@@ -6,7 +6,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,24 +14,21 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(RecursoNaoEncontradoException.class)
     public ResponseEntity<Map<String, Object>> tratarNaoEncontrado(RecursoNaoEncontradoException ex) {
-        return montar(HttpStatus.NOT_FOUND, ex.getMessage());
+        Map<String, Object> corpo = new HashMap<>();
+        corpo.put("erro", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(corpo);
     }
 
+    // retorna os campos que falharam na validacao
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, Object>> tratarValidacao(MethodArgumentNotValidException ex) {
-        String detalhe = ex.getBindingResult().getFieldErrors().stream()
-                .map(e -> e.getField() + ": " + e.getDefaultMessage())
-                .reduce((a, b) -> a + ", " + b)
-                .orElse("Dados invalidos");
-        return montar(HttpStatus.BAD_REQUEST, detalhe);
-    }
-
-    private ResponseEntity<Map<String, Object>> montar(HttpStatus status, String mensagem) {
         Map<String, Object> corpo = new HashMap<>();
-        corpo.put("timestamp", LocalDateTime.now().toString());
-        corpo.put("status", status.value());
-        corpo.put("erro", status.getReasonPhrase());
-        corpo.put("mensagem", mensagem);
-        return ResponseEntity.status(status).body(corpo);
+        String msg = "Dados invalidos";
+        if (!ex.getBindingResult().getFieldErrors().isEmpty()) {
+            var campo = ex.getBindingResult().getFieldErrors().get(0);
+            msg = campo.getField() + ": " + campo.getDefaultMessage();
+        }
+        corpo.put("erro", msg);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(corpo);
     }
 }

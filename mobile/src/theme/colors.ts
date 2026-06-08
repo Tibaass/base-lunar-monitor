@@ -3,16 +3,13 @@ import { StatusOperacional, TipoRecurso } from '../types';
 export const cores = {
   fundo: '#0B1020',
   superficie: '#161D33',
-  superficieClara: '#1F2942',
   borda: '#2A3550',
   texto: '#E8ECF6',
   textoSecundario: '#9AA6C4',
   primaria: '#5B8DEF',
-  primariaEscura: '#3A6BD0',
   normal: '#2FBF71',
   atencao: '#F2B705',
   critico: '#E5484D',
-  branco: '#FFFFFF',
 };
 
 export function corDoStatus(status: StatusOperacional): string {

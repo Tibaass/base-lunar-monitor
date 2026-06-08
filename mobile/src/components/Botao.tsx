@@ -33,7 +33,7 @@ export default function Botao({
       ]}
     >
       {carregando ? (
-        <ActivityIndicator color={cores.branco} />
+        <ActivityIndicator color="#fff" />
       ) : (
         <Text style={[styles.texto, secundaria && styles.textoSecundario]}>{titulo}</Text>
       )}
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     opacity: 0.7,
   },
   texto: {
-    color: cores.branco,
+    color: '#fff',
     fontSize: 16,
     fontWeight: '700',
   },

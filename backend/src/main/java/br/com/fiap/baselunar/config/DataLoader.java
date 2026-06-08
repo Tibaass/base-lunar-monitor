@@ -7,7 +7,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-// popula o banco com alguns dados de exemplo quando a aplicacao sobe
+// popula o banco com dados de exemplo pra teste
+// TODO: ver se da pra mover isso pra um arquivo SQL depois
 @Configuration
 public class DataLoader {
 
